@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBIT Career Hub Portal</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background-color: #f1f5f9; color: #1e293b; }
+        header { background-color: #0f172a; color: white; padding: 1.5rem; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; }
+        .card { background: white; padding: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-radius: 8px; }
+        h2 { margin-top: 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; color: #0f172a; }
+        .form-group { margin-bottom: 1.2rem; }
+        label { display: block; margin-bottom: 0.4rem; font-weight: 600; color: #475569; }
+        input, select { width: 100%; padding: 0.6rem; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; }
+        button { width: 100%; background-color: #2563eb; color: white; padding: 0.75rem; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 1rem; }
+        button:hover { background-color: #1d4ed8; }
+        .job-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+        .job-card { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-left: 5px solid #2563eb; display: flex; flex-direction: column; justify-content: space-between; }
+        .job-title { font-size: 1.25rem; font-weight: bold; color: #0f172a; margin: 0; }
+        .job-meta { font-size: 0.9rem; color: #64748b; margin: 0.3rem 0; }
+        .badge { display: inline-block; padding: 0.25rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; text-align: center; width: max-content; }
+        .badge-active { background-color: #d1fae5; color: #065f46; }
+        .badge-closed { background-color: #fee2e2; color: #991b1b; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1 style="margin: 0; font-size: 2.2rem;">🎯 CBIT CAREER PORTAL</h1>
+    <p style="margin: 0.5rem 0 0 0; opacity: 0.8;">One-Shot Deployment Placement & Internship Tracker</p>
+</header>
+
+<div class="container">
+    <div class="card">
+        <h2>Post New Opening</h2>
+        <form id="jobForm">
+            <div class="form-group">
+                <label>Company Name</label>
+                <input type="text" id="company" placeholder="e.g., Google, TCS" required>
+            </div>
+            <div class="form-group">
+                <label>Job/Internship Role</label>
+                <input type="text" id="role" placeholder="e.g., Software Engineer, Data Analyst" required>
+            </div>
+            <div class="form-group">
+                <label>CTC / Stipend (LPA/Month)</label>
+                <input type="text" id="package" placeholder="e.g., 12 LPA, 35K/Month" required>
+            </div>
+            <div class="form-group">
+                <label>Required Skills</label>
+                <input type="text" id="skills" placeholder="e.g., Python, SQL, React" required>
+            </div>
+            <div class="form-group">
+                <label>Application Status</label>
+                <select id="status">
+                    <option value="Active">Active / Hiring</option>
+                    <option value="Closed">Closed</option>
+                </select>
+            </div>
+            <button type="submit">Publish Drives</button>
+        </form>
+    </div>
+
+    <div>
+        <h2>Live Campus Drives</h2>
+        <div id="jobGrid" class="job-grid"></div>
+    </div>
+</div>
+
+<script>
+    const API_URL = 'http://127.0.0.1:8000/api/jobs';
+
+    async function fetchJobs() {
+        try {
+            const res = await fetch(API_URL);
+            const jobs = await res.json();
+            const grid = document.getElementById('jobGrid');
+            grid.innerHTML = jobs.length === 0 ? '<p style="color: #64748b;">No active drives logged yet.</p>' : '';
+            
+            jobs.forEach(job => {
+                const badgeClass = job.status === 'Active' ? 'badge-active' : 'badge-closed';
+                grid.innerHTML += `
+                    <div class="job-card" style="border-left-color: ${job.status === 'Active' ? '#2563eb' : '#ef4444'}">
+                        <div>
+                            <p class="job-title">${job.role}</p>
+                            <p class="job-meta" style="font-weight: bold; color: #334155;">🏢 ${job.company}</p>
+                            <p class="job-meta">💰 Package: <strong>${job.package}</strong></p>
+                            <p class="job-meta">🛠️ Skills: ${job.skills}</p>
+                        </div>
+                        <span class="badge ${badgeClass}" style="margin-top: 1rem;">${job.status}</span>
+                    </div>
+                `;
+            });
+        } catch (err) { console.error("Fetch error:", err); }
+    }
+
+    document.getElementById('jobForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const company = document.getElementById('company').value;
+        const role = document.getElementById('role').value;
+        const packageVal = document.getElementById('package').value;
+        const skills = document.getElementById('skills').value;
+        const status = document.getElementById('status').value;
+
+        try {
+            const res = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ company, role, package: packageVal, skills, status })
+            });
+            if (res.ok) {
+                document.getElementById('jobForm').reset();
+                fetchJobs();
+            }
+        } catch (err) { console.error("Submit error:", err); }
+    });
+
+    fetchJobs();
+</script>
+</body>
+</html>
