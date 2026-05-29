@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBIT Career Hub - Central Engine</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container dashboard-wide">
+        <div class="dashboard-header">
+            <h2>CBIT Career Hub</h2>
+            <div class="welcome-txt">Welcome back, <strong>{{ user.fullname }}</strong>!</div>
+        </div>
+
+        <div class="profile-section">
+            <h3>🎯 Student Professional Profile</h3>
+            <div class="profile-grid">
+                <div class="profile-meta">
+                    <p><strong>Institution:</strong> {{ user.college }}</p>
+                    <p><strong>Registered Email:</strong> {{ user.email }}</p>
+                </div>
+                <div class="profile-meta">
+                    <p><strong>Graduation Year:</strong> Batch of {{ user.graduation_year }}</p>
+                    <div class="skills-container">
+                        <strong>Tech Stack:</strong> <span class="skills-tag">{{ user.skills }}</span>
+                    </div>
+                </div>
+            </div>
+            <a href="{{ url_for('view_resume') }}" target="_blank" class="btn btn-secondary">📄 Generate PDF Resume</a>
+        </div>
+
+        <div class="jobs-section">
+            <h3>💼 Active Placement Drives & Job Openings</h3>
+            <div class="jobs-grid">
+                {% for job in jobs %}
+                <div class="job-card">
+                    <div>
+                        <h4>{{ job.title }}</h4>
+                        <p class="company-name">🏢 {{ job.company }}</p>
+                        <p class="job-details">📍 {{ job.location }} | ⏱️ {{ job.type }}</p>
+                    </div>
+                    <div>
+                        <p class="package-tag">💰 CTC: {{ job.package }}</p>
+                        <button class="btn btn-apply" onclick="alert('Application submitted successfully to {{ job.company }} profile!')">Apply Instantly</button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="dashboard-footer">
+            <a href="{{ url_for('logout') }}" class="btn btn-logout">Secure Sign Out</a>
+        </div>
+    </div>
+</body>
+</html>

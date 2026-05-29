@@ -1,0 +1,290 @@
+/* =========================================================================
+   GLOBAL RESET & THEME CONFIGURATION
+   ========================================================================= */
+:root {
+    --primary-color: #1e3a8a;
+    --primary-hover: #1d4ed8;
+    --secondary-color: #0f172a;
+    --accent-color: #10b981;
+    --background-gray: #f1f5f9;
+    --card-bg: #ffffff;
+    --text-main: #334155;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-gray);
+    color: var(--text-main);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* =========================================================================
+   AUTHENTICATION STYLES (INDEX / REGISTER)
+   ========================================================================= */
+.container {
+    background: var(--card-bg);
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+}
+
+h2 {
+    color: var(--primary-color);
+    margin-bottom: 24px;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--secondary-color);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-hover);
+}
+
+/* =========================================================================
+   ADVANCED EXPANDED DASHBOARD ECOSYSTEM
+   ========================================================================= */
+.dashboard-wide {
+    max-width: 1000px;
+    width: 92%;
+    background: var(--card-bg);
+    padding: 35px;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04);
+    margin: 40px auto;
+    text-align: left;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+}
+
+.dashboard-header h2 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.welcome-txt {
+    font-size: 16px;
+    color: var(--text-main);
+}
+
+/* Profile Section Styling */
+.profile-section {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    padding: 24px;
+    border-radius: 10px;
+    border-left: 6px solid var(--primary-color);
+    margin-bottom: 35px;
+}
+
+.profile-section h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    font-size: 20px;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.profile-meta p {
+    margin: 6px 0;
+    font-size: 15px;
+}
+
+.skills-container {
+    margin-top: 10px;
+}
+
+.skills-tag {
+    background: #e2e8f0;
+    color: var(--secondary-color);
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-block;
+}
+
+/* Jobs Section Architecture */
+.jobs-section h3 {
+    color: var(--secondary-color);
+    font-size: 22px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+.jobs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.job-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 22px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.01);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.job-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
+    border-color: #cbd5e1;
+}
+
+.job-card h4 {
+    margin: 0 0 8px 0;
+    color: var(--primary-color);
+    font-size: 18px;
+}
+
+.company-name {
+    font-weight: 600;
+    color: var(--secondary-color);
+    margin: 0 0 12px 0;
+}
+
+.job-details {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin: 0 0 12px 0;
+}
+
+.package-tag {
+    font-weight: 700;
+    color: var(--accent-color);
+    font-size: 15px;
+    margin: 0 0 16px 0;
+}
+
+/* =========================================================================
+   BUTTON CONTROLS SYSTEM
+   ========================================================================= */
+.btn {
+    display: inline-block;
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    box-sizing: border-box;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.2s;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn-secondary {
+    background-color: #475569;
+    color: white;
+    width: auto;
+    padding: 10px 20px;
+    margin-top: 10px;
+}
+
+.btn-secondary:hover {
+    background-color: #334155;
+}
+
+.btn-apply {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+.btn-apply:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn-logout {
+    background-color: #dc2626;
+    color: white;
+    width: auto;
+    padding: 10px 22px;
+}
+
+.btn-logout:hover {
+    background-color: #b91c1c;
+}
+
+.dashboard-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 20px;
+}
+
+.link-box {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.link-box a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
